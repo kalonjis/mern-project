@@ -19,6 +19,7 @@ module.exports.UserInfo = (req,res) => {
     }).select('-password')
 };
 
+// Mise à jour des infos du user avec la methode "PUT"
 module.exports.updateUser = async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) 
       res.status(400).send('ID unknown : ' + req.params.id);
@@ -40,4 +41,18 @@ module.exports.updateUser = async (req, res) => {
       } catch (err){
           return res.status(500).json({ message: err})
       }
+};
+
+// Delete user avec la methode "DELETE"
+module.exports.deleteUser = async (req, res) => {
+    if (!ObjectID.isValid(req.params.id)) 
+      res.status(400).send('ID unknown : ' + req.params.id);
+    
+    try {
+        await UserModel.remove({_id: req.params.id}).exec();
+        res.status(200).json({message: "Successfully deleted. "})
+        
+    } catch (err){
+        return res.status(500).json({ message: err})
+    }
 };
