@@ -5,7 +5,10 @@ require('./config/db')
 
 const app = express();
 
-//middleware
+//Middleware 
+//remplace body-parser
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 //Routes
 app.use('/api/user', userRoutes);
