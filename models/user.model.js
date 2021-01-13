@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             max: 1024,
         },
-        follewers:{
+        followers:{
             type: [String]
         },
         following: {
