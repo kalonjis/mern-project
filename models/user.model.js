@@ -55,16 +55,18 @@ const userSchema = new mongoose.Schema(
         timestamps: true
     }
 
-)
+);
 
-// Function pour crypter le password AVANT l'enregistrement dans la db
+
+/* Fonction appelées par le controller*/
+// Fonction pour crypter le password AVANT l'enregistrement dans la db
 userSchema.pre('save', async function(next){
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     next();
 });
 
-// fonction pour contrôler la correspondance du password crypté lors du login
+// fonction pour contrôler la correspondance du password crypté lors du signIN (UserModel.login)
 userSchema.statics.login = async function(email, password){
     const user = await this.findOne({ email });
     if (user) {

@@ -48,5 +48,6 @@ module.exports.signIn = async (req, res) => {
 
 // Fonctions pour se délogger
 module.exports.logout = (req,res)=> {
-
+    res.cookie('jwt', '', { maxAge: 1}); // On fixe la durée du token à 1ms =>expiration immédiate
+    res.redirect('/'); //On redirige automatiquement
 }
