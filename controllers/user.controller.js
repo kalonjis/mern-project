@@ -1,4 +1,9 @@
+/* User controller - CRUD */
+
+// On importe le UserModel
 const UserModel = require('../models/user.model');
+
+// On instancie ObjectId.  
 const ObjectID = require('mongoose').Types.ObjectId;
 
 //Afficher(lire) les infos de tous les utilisateurs avec la methode "GET"
@@ -95,7 +100,7 @@ module.exports.unfollow = async (req, res) => {
       res.status(400).send('ID unknown : ' + req.params.id);
     
     try {
-        // add to the follower list
+        // remove from follower list
         await UserModel.findOneAndUpdate(
             req.params.id,
             { $pull: { following: req.body.idToUnFollow}},
@@ -105,7 +110,7 @@ module.exports.unfollow = async (req, res) => {
                 else return res.status(400).json(err);
             }
         );
-        // add to following list
+        // remove from following list
         await UserModel.findByIdAndUpdate(
             req.body.idToUnFollow,
             { $pull: { followers: req.params.id}},

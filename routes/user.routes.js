@@ -1,9 +1,22 @@
+/*
+    Module de route pour le user
+ */
+
+// On instancie le router d'express
 const router = require('express').Router();
+
+// On importe les contollers
 const authController = require('../controllers/auth.controller');
 const userController = require('../controllers/user.controller');
 
+
+/*On définit les route et les fonctions liées*/
+
 // auth
 router.post("/register", authController.signUp);
+router.post("/login", authController.signIn);
+router.get("/logout", authController.logout);
+
 
 // user display: 'block'
 router.get('/', userController.getAllUsers);

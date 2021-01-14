@@ -1,7 +1,11 @@
+/* Module de connection à la db*/
+
+//On instancie le module 'mongoose' (npm i -s mongoose )
 const mongoose = require('mongoose');
 
 mongoose.connect(
-    'mongodb+srv://' + process.env.DB_USER_PASS + '@cluster0.iom6z.mongodb.net/mern-project',
+    // On récupère le cluster créer dans mongo Atlas depuis mongo Compass 
+    'mongodb+srv://' + process.env.DB_USER_PASS + '@cluster0.iom6z.mongodb.net/mern-project', 
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
