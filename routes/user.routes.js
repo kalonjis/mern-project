@@ -10,7 +10,7 @@ const authController = require('../controllers/auth.controller');
 const userController = require('../controllers/user.controller');
 
 
-/*On définit les route et les fonctions liées*/
+/*On définit les routes et les fonctions liées*/
 
 // auth
 router.post("/register", authController.signUp);

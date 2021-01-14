@@ -57,12 +57,25 @@ const userSchema = new mongoose.Schema(
 
 )
 
-// Function pour crypter le password avant l'enregistrement dans la db
+// Function pour crypter le password AVANT l'enregistrement dans la db
 userSchema.pre('save', async function(next){
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     next();
-} )
+});
+
+// fonction pour contrôler la correspondance du password crypté lors du login
+userSchema.statics.login = async function(email, password){
+    const user = await this.findOne({ email });
+    if (user) {
+        const auth = await bcrypt.compare(password, user.password)
+        if (auth) {
+            return user;
+        }
+        throw Error('incorrect password');
+    }
+    throw Error('incorrect email');
+}
 
 // On instancie le userSchema et on définit la db dans laquelle on va l'utiliser ('user')
 const UserModel = mongoose.model('user', userSchema);
