@@ -15,13 +15,12 @@ require('./config/db')
 // On instancie express
 const app = express();
 
-// Middleware (fonctions qui peuvent accéder à l’objet Request (req), l’objet response (res))
+/* Middleware (fonctions qui peuvent accéder à l’objet Request (req), l’objet response (res)) */
 //(remplace body-parser)
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-
 //Routes
-app.use('/api/user', userRoutes);
+app.use('/api/user', userRoutes); 
 
 // server
 app.listen(process.env.PORT, ()=> {
