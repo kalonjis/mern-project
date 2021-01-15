@@ -15,8 +15,8 @@ require('dotenv').config({path: './config/.env'}) // npm i -s dotenv
 // On récupère le module db afin de lancer la connection à la db
 require('./config/db')
 
-// On importe le module checkUser
-const {checkUser} = require('./middleware/auth.middleware');
+// On importe le module checkUser et requireAuth
+const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 
 // On instancie express
 const app = express();
@@ -29,6 +29,9 @@ app.use(cookieParser()); // pour lire les cookies
 
 // jwt
 app.get('*', checkUser); // On check l'utilisateur pour n'importe quelle route
+app.get('/jwtid', requireAuth, (req, res) =>{ // On check si l'utilisateur est déjà loggé pour qu'il n'ai pas à devoir le refaire (1 seul x!)
+    res.status(200).send(res.locals.user._id)
+});
 
 //Routes (tjs à la fin...)
 app.use('/api/user', userRoutes); 

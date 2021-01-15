@@ -28,9 +28,37 @@ module.exports.checkUser = (req, res, next) => {
                 next(); // On continue le traitement de la requête
             }
         })
+    
+    // si pas de token:
     } else {
         res.locals.user = null;
         next();
+    }
+}
+
+// Fonction pour vérifier si déjà loggé (et ne pas devoir le refaire!) ou pas. On l'appelle qu'une seule fois en front!
+module.exports.requireAuth = (req, res, next) => {
+    //On stocke le(éventuel) cookie de l'utilisateur dans une const
+    const token = req.cookies.jwt;
+    //S'il y a un token
+    if (token){
+        //On compare le token avec celui du site (défini dans notre fichier .env)
+        jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) =>{
+            //si ça ne correspond pas:
+            if (err){
+               console.log(err);
+               //pas de next()!
+            
+            // si le token match:
+            }else {
+                console.log('user connected: '+decodedToken.id);
+                next();
+            }
+        })
+    
+    // si pas de token:
+    } else{
+        console.log('No token');
     }
 }
 
