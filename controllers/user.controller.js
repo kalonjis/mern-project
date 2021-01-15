@@ -101,12 +101,12 @@ module.exports.unfollow = async (req, res) => {
     
     try {
         // remove from follower list
-        await UserModel.findOneAndUpdate(
+        await UserModel.findByIdAndUpdate(
             req.params.id,
-            { $pull: { following: req.body.idToUnFollow}},
-            { new: true, upsert: true},
+            { $pull: { following: req.body.idToUnFollow }},
+            { new: true, upsert: true },
             (err, docs) => {
-                if (!err) res.status(201).json(docs)
+                if (!err) res.status(201).json(docs);
                 else return res.status(400).json(err);
             }
         );
