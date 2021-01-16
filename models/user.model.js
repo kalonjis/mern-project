@@ -15,14 +15,15 @@ const userSchema = new mongoose.Schema(
         pseudo: {
            type: String,
            required: true,
-           minLength: 3,
-           maxLength: 55,
+           minlength: 3,
+           maxlength: 55,
            unique: true,
            trim: true 
         },
         email:{
             type: String,
             required: true,
+            unique: true,
             validate: [isEmail],
             trim: true
         },
@@ -30,7 +31,7 @@ const userSchema = new mongoose.Schema(
           type: String,
           required: true,
           max: 1024,
-          minLength: 6  
+          minlength: 6  
         },
         picture: {
             type: String,

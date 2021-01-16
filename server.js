@@ -22,8 +22,7 @@ const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const app = express();
 
 /* Middleware (fonctions qui peuvent accéder à l’objet Request (req), l’objet response (res)) */
-//(remplace body-parser)
-app.use(express.json()) // for parsing application/json
+app.use(express.json()) //(remplace body-parser)// for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(cookieParser()); // pour lire les cookies
 
