@@ -1,3 +1,5 @@
+/**Module de gestion d'erreur relatifs à l'authentification */
+
 module.exports.signUpErrors = (err) => {
     let errors = { pseudo: '', email: '', password: ''}
 
