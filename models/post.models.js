@@ -42,4 +42,8 @@ const PostSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('post',PostSchema)
+
+const PostModel = mongoose.model('post',PostSchema);
+
+// On exporte le PostModel qui sera recup par les controllers  
+module.exports = PostModel;
