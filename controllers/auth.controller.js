@@ -17,8 +17,8 @@ const createToken = (id) => {
 
 /* Ensemble des fonctions qui gèrent l'authentification qu'on exporte afin de pouvoir être appelée par le routeur */
 
-// On importe le module qui va gérer les erreurs
-const {signUpErrors} = require('../utils/errors.utils');
+// On importe les modules qui vont gérer les erreurs
+const {signUpErrors, signInErrors } = require('../utils/errors.utils');
 
 // Fonction pour créer un nouvel utilisateur
 module.exports.signUp = async (req, res) => {
@@ -30,7 +30,7 @@ module.exports.signUp = async (req, res) => {
     }
     catch(err){
         const errors = signUpErrors(err);
-        res.status(200).send( errors)
+        res.status(400).send( errors)
     }
 }
 
@@ -46,7 +46,8 @@ module.exports.signIn = async (req, res) => {
     }
 
     catch (err){
-        res.status(400).json(err);
+        const errors = signInErrors(err);
+        res.status(400).send( errors)
     }
 }
 
