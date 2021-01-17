@@ -1,6 +1,6 @@
 const PostModel = require('../models/post.models');
 const UserModel = require('../models/user.model');
-const ObjectId = require('mongoose').Types.ObjectId;
+const ObjectID = require('mongoose').Types.ObjectId;
 
 module.exports.readPost = (req, res) => {
     PostModel.find((err, docs) => {
@@ -30,8 +30,23 @@ module.exports.createPost = async(req, res) => {
 };
 
 module.exports.updatePost = (req, res) => {
+    if (!ObjectID.isValid(req.params.id)) 
+      res.status(400).send('ID unknown : ' + req.params.id);
     
-}
+    const updatedRecord = {
+        message: req.body.message
+    };
+
+    PostModel.findByIdAndUpdate(
+        req.params.id,
+        { $set: updatedRecord },
+        { new: true },
+        (err, docs) => {
+            if(!err) res.send(docs);
+            else console.log('Update error: '+ err);
+        }
+    ) 
+};
 
 module.exports.deletePost = (req, res) => {
     
