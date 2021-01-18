@@ -102,7 +102,7 @@ module.exports.unlikePost = async (req, res) => {
         await PostModel.findByIdAndUpdate(
             req.params.id,
             {
-                $pull: { likers: req.body.id }
+             $pull: { likers: req.body.id }
             },
             { new: true, upsert: true},
             (err, docs)=>{
@@ -125,4 +125,44 @@ module.exports.unlikePost = async (req, res) => {
     } catch (err) {
         return res.status(400).send(err);
     }
+}
+
+// comments-crud
+
+module.exports.commentPost = (req, res) => {
+    if (!ObjectID.isValid(req.params.id)) 
+        res.status(400).send('ID unknown : ' + req.params.id);
+
+    try {
+        return PostModel.findByIdAndUpdate(
+            req.params.id,
+            {
+                $push: {
+                    comments:{
+                        commenterId: req.body.commenterId,
+                        commenterPseudo: req.body.commenterPseudo,
+                        text: req.body.text,
+                        timestamp: new Date().getTime()
+                    }
+                }
+            },
+            { new: true },
+            (err, docs) => {
+                if (!err) res.status(200).send(docs);
+                else res.status(400).send('error: '+ err)
+            }
+        );
+        
+    } catch (err) {
+        res.status(400).send(err);
+    }
+
+}
+
+module.exports.editCommentPost = (req, res) => {
+    
+}
+
+module.exports.deleteCommentPost = (req, res) => {
+    
 }
