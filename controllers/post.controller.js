@@ -55,7 +55,7 @@ module.exports.deletePost = (req, res) => {
     PostModel.findByIdAndRemove(
       req.params.id,
       (err, docs) => {
-          if(!err) res.send(docs);
+          if(!err) res.status(200).json({message: "Post successfully deleted. "});
           else console.log('Delete error: '+ err);
       }
   ) 
