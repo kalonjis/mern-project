@@ -6,7 +6,7 @@ module.exports.readPost = (req, res) => {
     PostModel.find((err, docs) => {
         if (!err) res.send(docs);
         else console.log('Error to get data ' + err)
-    })
+    }).sort({ createdAt: -1 }); // permet de réorganiser du plus récent au plus ancien
 
 }
 
@@ -160,9 +160,40 @@ module.exports.commentPost = (req, res) => {
 }
 
 module.exports.editCommentPost = (req, res) => {
-    
+    if (!ObjectID.isValid(req.params.id)) 
+        res.status(400).send('ID unknown : ' + req.params.id);
+
+    try {
+        return PostModel.findById(
+            req.params.id,
+            (err, docs) => {
+                const theComment = docs.comments.find((comment) =>
+                    comment._id.equals(req.body.commentId)
+                )
+
+                if (!theComment) res.status(404).send('comment not found');
+                else theComment.text = req.body.text;
+
+                return docs.save((err)=>{
+                    if (!err) return res.status(200).send(docs);
+                    else return res.status(500).send(err)
+                })
+            }
+        )
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
 }
 
 module.exports.deleteCommentPost = (req, res) => {
-    
+    if (!ObjectID.isValid(req.params.id)) 
+        res.status(400).send('ID unknown : ' + req.params.id);
+
+    try {
+        
+
+    } catch (error) {
+        
+    }
 }
