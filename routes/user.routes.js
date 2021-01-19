@@ -9,7 +9,8 @@ const router = require('express').Router();
 const authController = require('../controllers/auth.controller');
 const userController = require('../controllers/user.controller');
 const uploadController = require('../controllers/upload.controller');
-const multer = require('multer');  //npm i -s multer
+// On charge multer: module qui permet de gérer les fichiers entrants dans les requêtes HTTP
+const multer = require('multer');  // (npm i -s multer)
 const upload = multer();
 
 /*On définit les routes et les fonctions liées*/

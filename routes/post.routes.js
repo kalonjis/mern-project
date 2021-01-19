@@ -2,8 +2,13 @@
     Module de route pour le user
  */
 
-// On charge le router d'express
+
 const router = require('express').Router();
+// On charge multer : module qui permet de gérer les fichiers entrants dans les requêtes HTTP
+const multer = require('multer'); // (npm i -s multer)
+// On instancie multer
+const upload = multer();
+
 
 // On importe les contollers
 const postController = require('../controllers/post.controller');
@@ -11,7 +16,7 @@ const postController = require('../controllers/post.controller');
 
 /*On définit les routes et les fonctions liées*/
 router.get('/', postController.readPost);
-router.post('/', postController.createPost);
+router.post('/', upload.single('file'), postController.createPost);
 router.put('/:id', postController.updatePost);
 router.delete('/:id', postController.deletePost);
 router.patch('/like-post/:id', postController.likePost);
