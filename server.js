@@ -19,10 +19,24 @@ require('./config/db')
 // On importe le module checkUser et requireAuth
 const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 
+// On charge le module cors qui permet de gérer l'accessibilité à notre site depuis l'extérieur
+const cors = require('cors'); // npm i -s cors
+
+const corsOptions = {
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    'allowedHeaders': ['sessionId', 'content-Type'],
+    'exposedHeaders': ['sessionId'],
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false
+}
+
 // On instancie express
 const app = express();
 
 /* Middleware (fonctions qui peuvent accéder à l’objet Request (req), l’objet response (res)) */
+
+app.use(cors(corsOptions)); 
 app.use(express.json()) //(remplace body-parser)// for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(cookieParser()); // pour lire les cookies
