@@ -2,7 +2,7 @@
     Module de route pour le user
  */
 
-// On instancie le router d'express
+// On charge le router d'express
 const router = require('express').Router();
 
 // On importe les contollers

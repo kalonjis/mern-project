@@ -25,10 +25,27 @@ module.exports.uploadProfil = async (req, res) => {
     //Si on passe le check alors on traite l'image
     const fileName = req.body.name + ".jpg"
 
+    // On crée le fichier dans à l'emplacement ci-dessous
     await pipeline(
         req.file.stream,
         fs.createWriteStream(
-            `${__dirname}/../client/public/uploads/profil/${fileName}`
+            `${__dirname}/../client/public/uploads/profil/${fileName}` // On ne le stocke pas ds la db!
         )
     )
+
+    // On met à jour la base de donnée avec le nouveau lien de la photo
+    try {
+        await UserModel.findByIdAndUpdate(
+            req.body.userId,
+            { $set : { picture: "./uploads/profil/" +fileName}},
+            { new: true},
+            (err, docs) => {
+                if (!err) res.status(200).send(docs);
+                else res.status(500).send( {message: err});
+            }
+        )
+        
+    } catch (err) {
+        return res.status(500).send( {message: err});
+    }        
 };
