@@ -19,7 +19,7 @@ module.exports.signUpErrors = (err) => {
         errors.email = 'Cet email est déjà enregistré';
 
     return errors
-}
+};
 
 module.exports.signInErrors = (err) => {
     let errors = { email: '', password: ''}
@@ -29,6 +29,19 @@ module.exports.signInErrors = (err) => {
     
     if (err.message.includes('password'))
         errors.password = "Mot de passe incorrect";
+
+    return errors
+};
+
+module.exports.uploadErrors = (err) => {
+    let errors = { format: "", maxSize: ""};
+
+    if (err.message.includes('invalid file'))
+    errors.format = "Format incompatible";
+
+    if (err.message.includes('max size'))
+    errors.maxSize = "le fichier dépasse les 500ko";
+ 
 
     return errors
 }
