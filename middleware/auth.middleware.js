@@ -47,18 +47,19 @@ module.exports.requireAuth = (req, res, next) => {
             //si ça ne correspond pas:
             if (err){
                console.log(err);
+               res.send(200).json('no token')
                //pas de next()!
             
             // si le token match:
             }else {
-                console.log('user connected: '+decodedToken.id);
+                console.log(decodedToken.id);
                 next();
             }
-        })
+        });
     
     // si pas de token:
     } else{
         console.log('No token');
     }
-}
+};
 
