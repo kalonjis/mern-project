@@ -18,7 +18,7 @@ module.exports.checkUser = (req, res, next) => {
             if (err) {
                 //Plus info sur res.local : http://expressjs.com/en/api.html#res.locals 
                 res.locals.user = null; 
-                res.cookie('jwt','', { maxAge: 1}); // On supprime son cookie/token
+                //res.cookie('jwt','', { maxAge: 1}); // On supprime son cookie/token
                 next(); // On continue le traitement de la requête
             
             // si le token match:
