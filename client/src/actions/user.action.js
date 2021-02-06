@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // Action type
 export const GET_USER = 'GET_USER';
-export const UPLOAD_PICTURE = ' UPLOAD_PICTURE';
+export const UPLOAD_PICTURE = 'UPLOAD_PICTURE';
+export const UPDATE_BIO = 'UPDATE_BIO';
 
 // function to get the user info
 export const getUser = (uid)=>{
@@ -34,6 +35,21 @@ export const uploadPicture = (data, id)=> {
                     payload: res.data.picture // ...le chemin de l'image
                 })
               })
+         })
+         .catch((err)=> console.log(err));
+    }
+}
+
+// function to update user's bio
+export const updateBio = (userId, bio)=> {
+    return (dispatch)=>{
+        return axios
+         .put(`${process.env.REACT_APP_API_URL}api/user/${userId}`, {bio}) //1) on envoie la new data à la db
+         .then((res)=>{
+            dispatch({ //3) on envoie au reducer...
+                    type: UPDATE_BIO, 
+                    payload: bio
+            }) 
          })
          .catch((err)=> console.log(err));
     }
