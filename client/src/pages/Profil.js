@@ -4,14 +4,16 @@ import { UidContext} from '../components/AppContext';
 import UpdateProfil from '../components/Profil/UpdateProfil';
 
 
+/**Profil page component adress:.../profil  */
 
 
 const Profil = () =>{
-    const uid = useContext(UidContext);
+    const uid = useContext(UidContext);// on recupère l'id (s'il existe!) stockée dans le "UidContext.Provider" qui englobe le "<Routes/>" component (voir App.js)
 
+    // renvoie un affichage conditionnel: si uid=> "updateProfil" comp. sinon=> "Log" comp. (formulaire signUpForm(par défaut)/signIN)
     return (
         <div className="profil-page">
-            {uid?(
+            {uid?( 
                 <UpdateProfil/>
             ): (
              <div className="log-container">

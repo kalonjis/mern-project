@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-
+//component qui s'affiche sur la gauche de l'écran sur toutes les pages
 const LeftNav = ()=>{
     return (
         <div className="left-nav-container">

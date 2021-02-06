@@ -8,7 +8,7 @@ import { getUser } from './actions/user.action';
 const App = ()=>{
 
   const [uid, setUid] = useState(null);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //permet de déclancher une action - On stocke la methode dans une const pour  pouvoir l'appeler dans le callback
 
   useEffect(() =>{
     const fetchToken = async ()=>{
@@ -26,7 +26,8 @@ const App = ()=>{
 
     fetchToken();
 
-    if (uid) dispatch(getUser(uid));
+    // s'il y a un uid alors on le "dispatch" dans le store en appelant getUser
+    if (uid) dispatch(getUser(uid));  
   }, [uid])
 
   return (

@@ -3,10 +3,11 @@ import LeftNav from '../LeftNav';
 import {useSelector} from 'react-redux';
 import UploadImg from './UploadImg';
  
-
+// Component sous la barre Navbar qu'on récupère dans la page '/profil' quand user est connecté
 const UpdateProfil = ()=>{
-    const userData = useSelector((state)=>state.userReducer);
+    const userData = useSelector((state)=>state.userReducer);// On récupère les datas dans le store
 
+    // On affiche la LeftNav, l'uploadImg et la Bio
     return (
         <div className="profil-container">
             <LeftNav/>

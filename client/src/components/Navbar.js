@@ -4,13 +4,17 @@ import { NavLink } from 'react-router-dom';
 import { UidContext } from './AppContext';
 import Logout from './log/logout';
 
-const Navbar = ()=>{
-    const uid = useContext(UidContext)
-    const userData = useSelector((state)=>state.userReducer)
+//component qui s'affiche en haut de l'écran sur toutes les pages
 
+const Navbar = ()=>{
+    const uid = useContext(UidContext) ; //On récupère l'"uid" 
+    
+    const userData = useSelector((state)=>state.userReducer) // "useSelector" permet de récuper les datas dans le store
+
+    //On va gérer l'affichage en fonction de l'etat de la connexion (s'il y a un uid)
     return (
         <nav>
-            <div className ='nav-container'> 
+            <div className ='nav-container'>
                 <div className='logo'>
                     <NavLink exact to='/'>
                         <div className='logo'>
@@ -24,7 +28,7 @@ const Navbar = ()=>{
                         <li></li>
                         <li className="welcome">
                             <NavLink exact to='/profil'>
-                                <h5>Bienvenu {userData.pseudo}</h5>
+                                <h5>Bienvenue {userData.pseudo}</h5>
                             </NavLink>
                         </li>
                         <Logout />
