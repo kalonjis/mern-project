@@ -3,17 +3,18 @@ import LeftNav from '../LeftNav';
 import {useDispatch, useSelector} from 'react-redux';
 import UploadImg from './UploadImg';
 import { updateBio } from '../../actions/user.action';
+import { dateParser } from '../utils';
  
 // Component sous la barre Navbar qu'on récupère dans la page '/profil' quand user est connecté
 const UpdateProfil = ()=>{
     const [bio, setBio] = useState('');
-    const [updateForm, setUpdateForm] = useState(false)
+    const [updateForm, setUpdateForm] = useState(false); // pour gérer l'affichage conditionnel
     const userData = useSelector((state)=>state.userReducer);// On récupère les datas dans le store
-    const dispatch = useDispatch()
+    const dispatch = useDispatch() // on instancie la methode pour pouvoir l'utiliser ds le callback
 
     const handleUpdate=()=>{
-        dispatch(updateBio(userData._id, bio));
-        setUpdateForm(false);
+        dispatch(updateBio(userData._id, bio)); // déclanche l'action updateBio
+        setUpdateForm(false); // permet de changer l'affichage
     }
 
     // On affiche la LeftNav, l'uploadImg et la Bio
@@ -30,23 +31,23 @@ const UpdateProfil = ()=>{
                 <div className="right-part">
                     <div className="bio-pdate">
                         <h3>Bio</h3>
-                        {updateForm === false && (
+                        {updateForm === false && (  /*affichage conditionnel*/
                             <>
-                                <p onClick={()=>setUpdateForm(!updateForm)} >{userData.bio}</p>
-                                <button onClick={()=>setUpdateForm(!updateForm)}>Modifier Bio</button>
+                              <p onClick={()=>setUpdateForm(!updateForm)} >{userData.bio}</p>
+                              <button onClick={()=>setUpdateForm(!updateForm)}>Modifier Bio</button>
                             </>
                         )}
-                        {updateForm && (
+                        {updateForm && (  /*affichage conditionnel*/
                             <>
-                              <textarea type="text" defaultValue={userData.bio} onChange={(e)=>setBio(e.target.value)}>
+                              <textarea type="text" defaultValue={userData.bio} onChange={(e)=>setBio(e.target.value)} onClick={handleUpdate} >
                               </textarea>
                               <button onClick={handleUpdate} >Valider modifications</button>  
                             </>
                         )}
                     </div>
-                    <h4>Membre depuis le : {userData.createdAt}</h4>
-                    <h4>Abonnement {userData.following? userData.following.length:"0"}</h4>
-                    <h4>Abonnés {userData.followers? userData.followers.length:"0"}</h4>
+                    <h4>Membre depuis le : {dateParser(userData.createdAt)/* date de la db formatée */}</h4>
+                    <h4>Abonnements {userData.following? userData.following.length:""}</h4>
+                    <h4>Abonnés {userData.followers? userData.followers.length:""}</h4>
                 </div>
             </div>
         </div>

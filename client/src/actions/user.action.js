@@ -46,7 +46,7 @@ export const updateBio = (userId, bio)=> {
         return axios
          .put(`${process.env.REACT_APP_API_URL}api/user/${userId}`, {bio}) //1) on envoie la new data à la db
          .then((res)=>{
-            dispatch({ //3) on envoie au reducer...
+            dispatch({ //2) on envoie au reducer...
                     type: UPDATE_BIO, 
                     payload: bio
             }) 
