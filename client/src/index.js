@@ -9,11 +9,14 @@ import {applyMiddleware, createStore} from 'redux';
 import { Provider } from 'react-redux'; // "supra component" à notre "App" qui prend le store en props
 import thunk from 'redux-thunk';// Permet de faire des req asynchrones avec redux...
 import rootReducer from './reducers'; // Il va chercher l'index.js dans ce dossier par defaut
+import {getUsers} from './actions/users.action'
 
 // dev tools
 import {composeWithDevTools} from 'redux-devtools-extension'; // A EFFACER DES QU'ON PASSE EN PROD!!!!!!!!!!!!!!!!!
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+
+store.dispatch(getUsers())
 
 ReactDOM.render(
   <Provider store={store}>

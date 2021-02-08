@@ -11,6 +11,8 @@ const UpdateProfil = ()=>{
     const [updateForm, setUpdateForm] = useState(false); // pour gérer l'affichage conditionnel
     const userData = useSelector((state)=>state.userReducer);// On récupère les datas dans le store
     const dispatch = useDispatch() // on instancie la methode pour pouvoir l'utiliser ds le callback
+    const [followingPopup, setFollowingPopup] = useState(false);
+    const [followersPopup, setFollowersPopup] = useState(false);
 
     const handleUpdate=()=>{
         dispatch(updateBio(userData._id, bio)); // déclanche l'action updateBio
@@ -39,17 +41,45 @@ const UpdateProfil = ()=>{
                         )}
                         {updateForm && (  /*affichage conditionnel*/
                             <>
-                              <textarea type="text" defaultValue={userData.bio} onChange={(e)=>setBio(e.target.value)} onClick={handleUpdate} >
+                              <textarea type="text" defaultValue={userData.bio} onChange={(e)=>setBio(e.target.value)}>
                               </textarea>
                               <button onClick={handleUpdate} >Valider modifications</button>  
                             </>
                         )}
                     </div>
                     <h4>Membre depuis le : {dateParser(userData.createdAt)/* date de la db formatée */}</h4>
-                    <h4>Abonnements {userData.following? userData.following.length:""}</h4>
-                    <h4>Abonnés {userData.followers? userData.followers.length:""}</h4>
+                    <h5 onClick={()=>setFollowingPopup(true)}> 
+                        Abonnements {userData.following? userData.following.length:""/*Il faut mettre une ternaire sinon affiche erreur*/}
+                    </h5>
+                    <h5 onClick={()=>setFollowersPopup(true)}>
+                        Abonnés {userData.followers? userData.followers.length:""}
+                    </h5>
                 </div>
             </div>
+            { followingPopup && (
+                <div className="popup-profil-container">
+                    <div className="modal">
+                        <h3>Abonnements</h3>
+                        <span className="cross" onClick={()=> setFollowingPopup(false)}>&#10005;</span>
+                        HANDLEFOLLOW
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>)
+            }
+            { followersPopup && (
+                <div className="popup-profil-container">
+                    <div className="modal">
+                        <h3>Abonnés</h3>
+                        <span className="cross" onClick={()=> setFollowersPopup(false)}>&#10005;</span>
+                        <ul>
+                        HANDLEFOLLOW
+                            
+                        </ul>
+                    </div>
+                </div>)
+            }
         </div>
         
     )
