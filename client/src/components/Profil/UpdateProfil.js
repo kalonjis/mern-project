@@ -10,6 +10,7 @@ const UpdateProfil = ()=>{
     const [bio, setBio] = useState('');
     const [updateForm, setUpdateForm] = useState(false); // pour gérer l'affichage conditionnel
     const userData = useSelector((state)=>state.userReducer);// On récupère les datas dans le store
+    const usersData = useSelector((state)=>state.usersReducer);// On récupère les datas dans le store
     const dispatch = useDispatch() // on instancie la methode pour pouvoir l'utiliser ds le callback
     const [followingPopup, setFollowingPopup] = useState(false);
     const [followersPopup, setFollowersPopup] = useState(false);
@@ -18,6 +19,10 @@ const UpdateProfil = ()=>{
         dispatch(updateBio(userData._id, bio)); // déclanche l'action updateBio
         setUpdateForm(false); // permet de changer l'affichage
     }
+
+    // const handleFollowing=()=>{
+
+    // }
 
     // On affiche la LeftNav, l'uploadImg et la Bio
     return (
@@ -61,9 +66,21 @@ const UpdateProfil = ()=>{
                     <div className="modal">
                         <h3>Abonnements</h3>
                         <span className="cross" onClick={()=> setFollowingPopup(false)}>&#10005;</span>
-                        HANDLEFOLLOW
                         <ul>
-
+                            {usersData.map((user) => {
+                                    for (let i = 0; i < userData.following.length; i++) {
+                                        if (user._id === userData.following[i]){
+                                            return (
+                                                <li key={user._id}>
+                                                <img src={user.picture} alt="user-pic"/>
+                                                <h4>{user.pseudo}</h4>
+                                                <h1>follow handler</h1>
+                                                </li>
+                                            )
+                                        }  
+                                    }
+                                })
+                            }
                         </ul>
                     </div>
                 </div>)
@@ -74,8 +91,20 @@ const UpdateProfil = ()=>{
                         <h3>Abonnés</h3>
                         <span className="cross" onClick={()=> setFollowersPopup(false)}>&#10005;</span>
                         <ul>
-                        HANDLEFOLLOW
-                            
+                            {usersData.map((user) => {
+                                    for (let i = 0; i < userData.followers.length; i++) {
+                                        if (user._id === userData.followers[i]){
+                                            return (
+                                                <li key={user._id}>
+                                                <img src={user.picture} alt="user-pic"/>
+                                                <h4>{user.pseudo}</h4>
+                                                <h1>follow handler</h1>
+                                                </li>
+                                            )
+                                        }  
+                                    }
+                                })
+                            }                            
                         </ul>
                     </div>
                 </div>)
