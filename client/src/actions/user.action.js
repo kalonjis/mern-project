@@ -4,6 +4,8 @@ import axios from 'axios';
 export const GET_USER = 'GET_USER';
 export const UPLOAD_PICTURE = 'UPLOAD_PICTURE';
 export const UPDATE_BIO = 'UPDATE_BIO';
+export const FOLLOW_USER = 'FOLLOW_USER';
+export const UNFOLLOW_USER = 'UNFOLLOW_USER';
 
 // function to get the user info
 export const getUser = (uid)=>{
@@ -52,5 +54,33 @@ export const updateBio = (userId, bio)=> {
             }) 
          })
          .catch((err)=> console.log(err));
+    }
+}
+
+export const followUser = (followerId, idToFollow) =>{
+    return(dispatch) =>{
+        return axios
+        .patch(`${process.env.REACT_APP_API_URL}api/user/follow/${followerId}`, {idToFollow})
+        .then((res)=>{
+            dispatch({
+                type: FOLLOW_USER,
+                payload: {idToFollow}
+            })
+        })
+        .catch((err)=> console.log(err));
+    }
+}
+
+export const unFollowUser = (followerId, idToUnFollow) =>{
+    return(dispatch) =>{
+        return axios
+        .patch(`${process.env.REACT_APP_API_URL}api/user/unfollow/${followerId}`, {idToUnFollow})
+        .then((res)=>{
+            dispatch({
+                type: UNFOLLOW_USER,
+                payload: {idToUnFollow}
+            })
+        })
+        .catch((err)=> console.log(err));
     }
 }
