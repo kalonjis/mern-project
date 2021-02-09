@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import UploadImg from './UploadImg';
 import { updateBio } from '../../actions/user.action';
 import { dateParser } from '../utils';
+import FollowHandler from './FollowHandler';
  
 // Component sous la barre Navbar qu'on récupère dans la page '/profil' quand user est connecté
 const UpdateProfil = ()=>{
@@ -19,10 +20,6 @@ const UpdateProfil = ()=>{
         dispatch(updateBio(userData._id, bio)); // déclanche l'action updateBio
         setUpdateForm(false); // permet de changer l'affichage
     }
-
-    // const handleFollowing=()=>{
-
-    // }
 
     // On affiche la LeftNav, l'uploadImg et la Bio
     return (
@@ -74,7 +71,9 @@ const UpdateProfil = ()=>{
                                                 <li key={user._id}>
                                                 <img src={user.picture} alt="user-pic"/>
                                                 <h4>{user.pseudo}</h4>
-                                                <h1>follow handler</h1>
+                                                <div className="follow-handler">
+                                                    <FollowHandler idToFollow={user._id}/>
+                                                </div>
                                                 </li>
                                             )
                                         }  
@@ -98,7 +97,9 @@ const UpdateProfil = ()=>{
                                                 <li key={user._id}>
                                                 <img src={user.picture} alt="user-pic"/>
                                                 <h4>{user.pseudo}</h4>
-                                                <h1>follow handler</h1>
+                                                <div className="follow-handler">
+                                                    <FollowHandler idToFollow={user._id}/>
+                                                </div>
                                                 </li>
                                             )
                                         }  

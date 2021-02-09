@@ -1,3 +1,5 @@
+/**Diverses fonctions qu'on va utiliser dans le projet à plusieurs endroits*/
+
 // fonction pour traiter les dates
 
 export const dateParser =(num) => {
@@ -18,3 +20,14 @@ export const dateParser =(num) => {
 
     return date.toString() //on renvoie la date
 }
+
+//Fonction pour vérifier si une variable est vide (pas de fct native dans JS !== PHP)
+
+export const isEmpty = (value) => {
+    return (
+        value === undefined ||
+        value === null ||
+        (typeof value ==='object' && Object.keys(value).length === 0)||
+        (typeof value === 'string' && value.trim().length === 0)
+    );
+};
