@@ -1,17 +1,18 @@
 import React from 'react';
 import LeftNav from '../components/LeftNav'
+import Thread from '../components/Thread';
 // import Log from '../components/log/Log'
 
 const Home = () =>{
     return (
-        <>
-            <h1> hello depuis home</h1>
-        <div className="profil-container">
+        <div className="home">
             <LeftNav />
-        </div>
-          </>  
-        )
-    }
+            <div className="main">
+            <Thread/>
+            </div>
+        </div> 
+    )
+}
 
 export default Home;
 
