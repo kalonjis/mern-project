@@ -31,3 +31,17 @@ export const likePost=(postId, userId) =>{
             .catch ((err)=> console.log(err))
     }
 }
+
+export const unlikePost = (postId, userId) => {
+    return (dispatch) => {
+      return axios({ // axios.patch ne fonctionne pas ici...Et je ne sais pas pq!!!!!!
+        method: "patch", //obligé de déstructuré comme ici!
+        url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + postId,  
+        data: { id: userId },
+      })
+        .then((res) => {
+          dispatch({ type: UNLIKE_POST, payload: { postId, userId } });
+        })
+        .catch((err) => console.log(err));
+    };
+  };
