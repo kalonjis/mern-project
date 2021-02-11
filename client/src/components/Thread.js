@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../actions/post.actions';
+import Card from './Post/Card';
 import { isEmpty } from './utils';
 
 const Thread = () =>{
@@ -21,7 +22,7 @@ const Thread = () =>{
            <ul>
                {!isEmpty(posts[0]) &&
                 posts.map((post) =>{
-                   return <li key={post._id}>{post._id}</li>
+                   return <Card post={post} key={post._id} />
                 })
                }
            </ul>
