@@ -28,7 +28,7 @@ const App = ()=>{
 
     // s'il y a un uid alors on le "dispatch" dans le store en appelant getUser
     if (uid) dispatch(getUser(uid));  
-  }, [uid])
+  }, [uid, dispatch])
 
   return (
     <UidContext.Provider value={uid}>
