@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updatePost } from '../../actions/post.actions';
 import FollowHandler from '../Profil/FollowHandler';
 import { dateParser, isEmpty } from '../utils';
+import DeleteCard from './DeleteCard';
 import LikeButton from './LikeButton';
 
 const Card = ({post})=>{
@@ -64,6 +65,7 @@ const Card = ({post})=>{
                         
                         {/* Affichage du post.message */}
                         {isUpdated === false && <p>{post.message}</p>}
+
                         {/* Affichage de la textarea pour mettre à jour le post.message */} 
                         {isUpdated && (
                             <div className="update-post">
@@ -102,6 +104,7 @@ const Card = ({post})=>{
                                 <div onClick={()=>setIsUpdated(!isUpdated)}>
                                     <img src="./img/icons/edit.svg" alt="edit"/>
                                 </div>
+                                <DeleteCard id={post._id}/>
                             </div>
                         )}
 
