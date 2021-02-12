@@ -7,7 +7,7 @@ import { isEmpty } from './utils';
 const Thread = () =>{
 
     const [loadPost, setLoadPost] = useState(true);
-    const [count, setCount] = useState(5) // pour gérer l'infinite scroll (on en affiche 5 à la fois)
+    const [count, setCount] = useState(8) // pour gérer l'infinite scroll (on en affiche 8 à la fois)
     const dispatch = useDispatch();
     const posts = useSelector((state)=> state.postReducer);
 
