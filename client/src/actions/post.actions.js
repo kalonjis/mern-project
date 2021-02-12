@@ -23,15 +23,18 @@ export const getPosts=(num) =>{
 
 export const likePost=(postId, userId) =>{
     return (dispatch)=>{
-        return axios
-            .patch(`${process.env.REACT_APP_API_URL}api/post/like-post/${postId}`)
-            .then ((res)=>{
-                dispatch({
-                    type: LIKE_POST,
-                    payload: {postId, userId}
-                })
+        return axios({
+            method:"patch",
+            url: `${process.env.REACT_APP_API_URL}api/post/like-post/${postId}`,
+            data: {id:userId}
+        })
+        .then ((res)=>{
+            dispatch({
+                type: LIKE_POST,
+                payload: {postId, userId}
             })
-            .catch ((err)=> console.log(err))
+        })
+        .catch ((err)=> console.log(err))
     }
 }
 
@@ -54,7 +57,7 @@ export const updatePost = (postId, message) =>{
         return axios({
             method: "put",
             url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
-            data: message  
+            data: {message}  //DON'T FORGET THE "{}"!!!!!!!!!
         })
         .then((res)=>{
             dispatch({

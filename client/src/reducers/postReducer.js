@@ -27,6 +27,7 @@ export default function postReducer (state = {initialState} , action) {
                     };
                 }
                 return post;
+                
             });
         
         case UPDATE_POST:
@@ -35,9 +36,10 @@ export default function postReducer (state = {initialState} , action) {
                     return {
                         ...post,
                         message: action.payload.message
-                    }
-                };
+                    };
+                }
                 return post;
+                
             });
         
         default:
