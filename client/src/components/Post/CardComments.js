@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addComment, getPosts } from '../../actions/post.actions';
 import FollowHandler from '../Profil/FollowHandler';
 import { isEmpty, timestampParser } from '../utils';
+import EditDeleteComment from './EditDeleteComment';
 
 
 
@@ -16,7 +17,6 @@ const CardComments = ({post}) =>{
         e.preventDefault();
 
         if(text){
-            console.log("testAZERTY")
             dispatch(addComment(post._id, userData._id, text, userData.pseudo))
                 .then(()=> dispatch(getPosts()))
                 .then(()=> setText(''));
@@ -57,6 +57,8 @@ const CardComments = ({post}) =>{
                                 <span>{timestampParser(comment.timestamp)}</span>
                             </div>
                             <p>{comment.text}</p>
+                            <EditDeleteComment comment={comment} postId={post._id}/>
+
                         </div>
                     </div>
                 );
