@@ -5,7 +5,7 @@ import { UidContext } from '../AppContext';
 
 
 export const EditDeleteComment = ({comment, postId}) =>{
-    const [isAuthor, setIsAuthor] = useState(true);
+    const [isAuthor, setIsAuthor] = useState(false);
     const [edit, setEdit] = useState(false);
     const [text, setText] = useState('');
     const uid = useContext(UidContext);
