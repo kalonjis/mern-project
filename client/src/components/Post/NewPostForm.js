@@ -11,23 +11,40 @@ const NewPostForm = () =>{
     const [file, setFile] = useState('');
     const userData = useSelector((state)=> state.userReducer)
     
-    const handlePicture =(e)=>{
-        e.preventDefault()
-    }
+    const handlePost=()=>{}
     const cancelPost=()=>{
         setMessage('');
         setPostPicture(null);
         setVideo('')
         setFile(null)
     }
+    const handlePicture =(e)=>{
+        e.preventDefault()
+    }
 
-    const handlePost=()=>{}
+
+    const handleVideo = ()=>{
+        let findLink = message.split(' ');
+        for (let i = 0; i < findLink.length; i++) {
+            if (
+                findLink[i].includes("https://www.yout") ||
+                findLink[i].includes("https://yout")
+            ) {
+                let embed= findLink[i].replace("watch?v=", "embed/");
+                setVideo(embed.split('&')[0]);
+                findLink.splice(i, 1);
+                setMessage(findLink.join(' '));
+                setPostPicture('');
+            }
+        }
+    }
 
     useEffect(()=>{
         if (!isEmpty(userData)) {
             setIsloading(false)
+            handleVideo()
         }
-    }, [userData])
+    }, [userData, message, video])
 
     return (
         <div className="post-container">
