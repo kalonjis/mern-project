@@ -33,10 +33,11 @@ module.exports.createPost = async(req, res) => {
         
         } catch (err) {
             const errors = uploadErrors(err);
-            return res.status(400).json({errors});
+            return res.status(201).json({errors});
         }
-        //Si on passe le check alors on traite l'image
-        const fileName = req.body.posterId + Date.now() + '.jpg';
+        //Si on passe le check alors on traite l'image (nom de l'image unique = user._Id+ date en milisec+jpg)
+        fileName = req.body.posterId + Date.now() + '.jpg';
+
         // On crée le fichier dans à l'emplacement ci-dessous
         await pipeline(
             req.file.stream,
@@ -49,7 +50,7 @@ module.exports.createPost = async(req, res) => {
     const newPost = new PostModel({
         posterId: req.body.posterId,
         message: req.body.message,
-        picture: req.file !== null ? "./uploads/posts/"+ fileName : "",
+        picture: req.file !== null ? "./uploads/posts/" + fileName : "",
         video: req.body.video,
         likers: [],
         comments: []
@@ -58,9 +59,7 @@ module.exports.createPost = async(req, res) => {
     try{
         const post = await newPost.save();
         return res.status(201).json(post);
-    }
-
-    catch (err){
+    } catch (err){
         return res.status(400).send(err);
     }
 };

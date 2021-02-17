@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { addPost, getPosts } from '../../actions/post.actions';
 import { isEmpty, timestampParser } from '../utils';
 
 const NewPostForm = () =>{
@@ -8,40 +9,61 @@ const NewPostForm = () =>{
     const [message, setMessage] = useState('');
     const [postPicture, setPostPicture] = useState(null)
     const [video, setVideo] = useState('');
-    const [file, setFile] = useState('');
+    const [file, setFile] = useState();
     const userData = useSelector((state)=> state.userReducer)
+    const dispatch = useDispatch();
     
-    const handlePost=()=>{}
+    const handlePost= async()=>{
+       if (message || postPicture || video){
+           const data = new FormData();
+           data.append('posterId', userData._id);
+           data.append('message', message);
+           if (file) data.append("file",file);
+           data.append('video', video);
+
+           await dispatch(addPost(data));
+           dispatch(getPosts())
+           cancelPost();
+
+
+       } else{
+           alert("veuillez entrer un message")
+       }
+    }
+
+    const handlePicture =(e)=>{
+        setPostPicture(URL.createObjectURL(e.target.files[0]));
+        setFile(e.target.files[0]);
+        setVideo('');
+    }
+
     const cancelPost=()=>{
         setMessage('');
         setPostPicture(null);
         setVideo('')
         setFile(null)
     }
-    const handlePicture =(e)=>{
-        e.preventDefault()
-    }
 
 
-    const handleVideo = ()=>{
-        let findLink = message.split(' ');
-        for (let i = 0; i < findLink.length; i++) {
-            if (
-                findLink[i].includes("https://www.yout") ||
-                findLink[i].includes("https://yout")
-            ) {
-                let embed= findLink[i].replace("watch?v=", "embed/");
-                setVideo(embed.split('&')[0]);
-                findLink.splice(i, 1);
-                setMessage(findLink.join(' '));
-                setPostPicture('');
-            }
-        }
-    }
-
+    
     useEffect(()=>{
         if (!isEmpty(userData)) {
             setIsloading(false)
+            const handleVideo = ()=>{
+                let findLink = message.split(' ');
+                for (let i = 0; i < findLink.length; i++) {
+                    if (
+                        findLink[i].includes("https://www.yout") ||
+                        findLink[i].includes("https://yout")
+                    ) {
+                        let embed= findLink[i].replace("watch?v=", "embed/");
+                        setVideo(embed.split('&')[0]);
+                        findLink.splice(i, 1);
+                        setMessage(findLink.join(' '));
+                        setPostPicture('');
+                    }
+                }
+            }
             handleVideo()
         }
     }, [userData, message, video])
