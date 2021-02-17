@@ -41,6 +41,11 @@ export const addPost = (data)=>{
                         type: GET_POST_ERRORS,
                         payload: res.data.errors
                     })
+                }else{
+                    dispatch({
+                        type: GET_POST_ERRORS,
+                        payload: ''
+                    })
                 }
             })
             .catch ((err)=>console.log(err))

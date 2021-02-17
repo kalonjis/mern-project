@@ -20,7 +20,7 @@ module.exports.uploadProfil = async (req, res) => {
     
     } catch (err) {
         const errors = uploadErrors(err);
-        return res.status(400).json({errors});
+        return res.status(201).json({errors});
     }
     //Si on passe le check alors on traite l'image
     const fileName = req.body.name + ".jpg"

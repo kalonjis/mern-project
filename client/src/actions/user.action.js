@@ -6,6 +6,7 @@ export const UPLOAD_PICTURE = 'UPLOAD_PICTURE';
 export const UPDATE_BIO = 'UPDATE_BIO';
 export const FOLLOW_USER = 'FOLLOW_USER';
 export const UNFOLLOW_USER = 'UNFOLLOW_USER';
+export const GET_USER_ERRORS = 'GET_USER_ERRORS'
 
 // function to get the user info
 export const getUser = (uid)=>{
@@ -28,17 +29,25 @@ export const uploadPicture = (data, id)=> {
 
         return axios
          .post(`${process.env.REACT_APP_API_URL}api/user/upload`, data) //1) on envoie la new data à la db
-         .then((res)=>{ 
+         .then((res)=>{
+            if(res.data.errors){
+                dispatch({
+                    type: GET_USER_ERRORS,
+                    payload : res.data.errors
+                })
+            } else { 
+             res.data.errors=''
              return axios
               .get(`${process.env.REACT_APP_API_URL}api/user/${id}`) // 2) On va recupérer les datas du user dans la db
               .then((res) =>{
-                dispatch({ //3) on envoie au reducer...
-                    type: UPLOAD_PICTURE, 
-                    payload: res.data.picture // ...le chemin de l'image
-                })
-              })
-         })
-         .catch((err)=> console.log(err));
+                    dispatch({ //3) on envoie au reducer...
+                        type: UPLOAD_PICTURE, 
+                        payload: res.data.picture // ...le chemin de l'image
+                    })
+               })
+            }
+        })
+        .catch((err)=> console.log(err));
     }
 }
 

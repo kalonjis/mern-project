@@ -6,6 +6,7 @@ const UploadImg = ()=>{
     const [file, setFile] = useState('');
     const dispatch = useDispatch(); 
     const userData = useSelector((state) => state.userReducer); // on selectionne les infos dans le store
+    const errors = useSelector((state)=> state.errorReducer)
 
     // traitement à la soumission du form
     const handlePicture = (e)=>{
@@ -31,6 +32,8 @@ const UploadImg = ()=>{
             />
             <br/>
             <input type='submit' value="Envoyer" />
+            {errors.userErrors.format && <p>{errors.userErrors.format}</p>}
+            {errors.userErrors.maxSize && <p>{errors.userErrors.maxSize}</p>}
         </form>
     )
 }
