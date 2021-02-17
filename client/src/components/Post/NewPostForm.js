@@ -10,7 +10,8 @@ const NewPostForm = () =>{
     const [postPicture, setPostPicture] = useState(null)
     const [video, setVideo] = useState('');
     const [file, setFile] = useState();
-    const userData = useSelector((state)=> state.userReducer)
+    const userData = useSelector((state)=> state.userReducer);
+    const errors= useSelector((state)=>state.errorReducer)
     const dispatch = useDispatch();
     
     const handlePost= async()=>{
@@ -144,6 +145,8 @@ const NewPostForm = () =>{
                                     <button onClick={(e)=>setVideo('')}>Supprimer video</button>
                                 )}
                             </div>
+                            {!isEmpty(errors.postErrors.format) && <p>{errors.postErrors.format} </p>}
+                            {!isEmpty(errors.postErrors.maxSize) && <p>{errors.postErrors.maxSize} </p>}
                             <div className="btn-send">
                                 {message || postPicture || video.length>20 ? (
                                     <button className="cancel" onClick={cancelPost}>Annuler</button>
