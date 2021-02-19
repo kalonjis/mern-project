@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {UidContext} from '../components/AppContext';
 import LeftNav from '../components/LeftNav'
 import Card from '../components/Post/Card';
+import FriendsHint from '../components/Profil/FriendsHint';
 import Trends from '../components/Trends';
 import { isEmpty } from '../components/utils';
 
@@ -25,6 +26,8 @@ const Trending = () =>{
            <div className="right-side">
                <div className="right-side-container">
                     <Trends />
+                    {uid && <FriendsHint />}
+
                </div>
 
            </div>
