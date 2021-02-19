@@ -2,6 +2,7 @@ import axios from 'axios';
 
 // post
 export const GET_POSTS = "GET_POSTS";
+export const GET_ALL_POSTS = "GET_ALL_POSTS";
 export const ADD_POSTS = "ADD_POSTS";
 export const LIKE_POST = 'LIKE_POST';
 export const UNLIKE_POST = 'UNLIKE_POST';
@@ -12,6 +13,9 @@ export const DELETE_POST = 'DELETE_POST';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+
+// trends
+export const GET_TRENDS = 'GET_TRENDS';
 
 // errors
 export const GET_POST_ERRORS = "GET_POST_ERRORS";
@@ -24,7 +28,11 @@ export const getPosts=(num) =>{
                 const array = res.data.slice(0, num);// créer le tableau pour l'infinite scroll
                 dispatch({
                     type: GET_POSTS,
-                    payload: array 
+                    payload: array
+                })
+                dispatch({
+                    type : GET_ALL_POSTS,
+                    payload : res.data
                 })
             })
             .catch((err)=>{console.log(err)})
@@ -165,3 +173,12 @@ export const deleteComment = (postId, commentId)=>{
         .catch((err)=>console.log(err))
     };
 };
+
+export const getTrends = (sortedArray)=>{
+    return(dispatch) =>{
+        dispatch({
+            type:GET_TRENDS,
+            payload: sortedArray
+        })
+    }
+}

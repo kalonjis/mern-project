@@ -13,10 +13,12 @@ import {getUsers} from './actions/users.action'
 
 // dev tools
 import {composeWithDevTools} from 'redux-devtools-extension'; // A EFFACER DES QU'ON PASSE EN PROD!!!!!!!!!!!!!!!!!
+import { getPosts } from './actions/post.actions';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
-store.dispatch(getUsers())
+store.dispatch(getUsers());
+store.dispatch(getPosts())
 
 ReactDOM.render(
   <Provider store={store}>
