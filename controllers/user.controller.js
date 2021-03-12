@@ -13,7 +13,7 @@ module.exports.getAllUsers = async (req,res) => {
 };
 
 //Afficher(lire) les infos d'un seul utilisateur avec la methode "GET"
-module.exports.UserInfo = (req,res) => {
+module.exports.userInfo = (req,res) => {
     console.log(req.params);
     if (!ObjectID.isValid(req.params.id)) 
       res.status(400).send('ID unknown : ' + req.params.id);

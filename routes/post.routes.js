@@ -1,7 +1,6 @@
 /*
-    Module de route pour le user
+    Module de route pour le post
  */
-
 
 const router = require('express').Router();
 // On charge multer : module qui permet de gérer les fichiers entrants dans les requêtes HTTP

@@ -23,7 +23,7 @@ router.get("/logout", authController.logout);
 
 // user display: 'block'
 router.get('/', userController.getAllUsers);
-router.get('/:id', userController.UserInfo)
+router.get('/:id', userController.userInfo)
 router.put('/:id', userController.updateUser)
 router.delete('/:id', userController.deleteUser)
 router.patch('/follow/:id', userController.follow);
